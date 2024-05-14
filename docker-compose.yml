@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  backend:
+    build: ./Backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27018/
+    env_file:
+      - .env
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "3000:8080"
+      - "8080:8080"
+    env_file:
+      - .env
+
+  mongo:
+    image: mongo
+    ports:
+      - "27018:27017"
